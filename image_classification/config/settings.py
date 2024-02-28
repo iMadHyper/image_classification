@@ -15,6 +15,8 @@ import os
 
 from dotenv import load_dotenv
 
+import tensorflow as tf
+
 
 load_dotenv()
 
@@ -136,3 +138,29 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+IMG_HEIGHT = 160
+IMG_WIDTH = 160
+MODEL = tf.keras.models.load_model('model_v1.h5')
+
+CLASS_NAMES = ['apple', 'avocado', 'banana', 'cherry', 'coconut', 'grape']
+CLASS_IMAGES = {
+    'apple' : 'img/apples.jpg', 
+    'avocado' : 'img/avocado.jpg', 
+    'banana' : 'img/bananas.jpg', 
+    'cherry' : 'img/cherry.jpg', 
+    'coconut' : 'img/coconut.jpg', 
+    'grape' : 'img/grape.jpg'
+}
+CLASS_RU_NAMES = {
+    'apple' : 'Яблоко', 
+    'avocado' : 'Авокадо', 
+    'banana' : 'Банан', 
+    'cherry' : 'Вишня', 
+    'coconut' : 'Кокос', 
+    'grape' : 'Виноград'
+}
+
+# директория, куда будем сохранять изображения
+SAVE_USER_UPLOADS_DIRECTORY = os.path.join(MEDIA_ROOT, 'uploaded_images')
