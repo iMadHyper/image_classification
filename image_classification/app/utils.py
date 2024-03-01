@@ -64,9 +64,7 @@ def predict_image(image_file):
 
         index = 1
         for s in np.nditer(-np.sort(-scores)):
-            # i, = np.where(np.isclose(scores, s))
             i = np.where(scores == s)
-            # print(i)
             print("{} - {:.2f}%".format(CLASS_NAMES[int(i[0])], 100 * s))
 
             results.update({
@@ -84,7 +82,7 @@ def predict_image(image_file):
     except Exception as ex:
         print(ex)
         context.update({
-            'error' : 'Не получилось открыть файл. Поддерживаемые типы файлов: png, jpg, jpeg.'
+            'error' : 'Не получилось открыть файл. Поддерживаемые типы файлов: png, jpg, jpeg, webp.'
         })
     
     return context
