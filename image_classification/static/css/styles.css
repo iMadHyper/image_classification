@@ -1,0 +1,15 @@
+.target {
+    border: solid 1px #aaa;
+    min-width: 50%;
+    max-height: 900px;
+    max-width: 1600px;
+    height: fit-content;
+    width: fit-content;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 300ms all;
+}
+
+.card-hover:hover {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}

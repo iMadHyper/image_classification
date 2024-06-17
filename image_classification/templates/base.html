@@ -1,0 +1,183 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" style="height: 100%;">
+
+<head>
+    <title>Классификация изображений</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet">
+    <link rel="icon" href="{% static 'img/logo.png' %}">
+</head>
+
+<body style="height: 100%; display: flex; flex-flow: column;">
+    {% include 'include/header.html' %}
+
+    <div class="container mt-5">
+        {% if error %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            {{ error }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+    </div>
+
+    <div class="container mt-5">
+        <p class="fs-2 text-center">
+            Здесь работает нейросеть, которая классифицирует изображения.<br>
+            Выберите картинку с помощью формы и нейросеть отнесет ее
+            к одному из классов, находящихся ниже.
+        </p>
+    </div>
+
+    <div class="container border border-5 rounded-5 p-5 mt-5"
+        style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+        <form method="POST" action="{% url 'main:main' %}" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="row g-4 align-items-center">
+                <div class="col">
+                    <input name="image_input" class="form-control form-control-lg" type="file" id="formFile">
+                </div>
+                <div class="col-auto">
+                    <button type="submit" class="btn btn-dark btn-lg">Отправить</button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+    {% if user_image_url %}
+    <div class="container mt-5">
+        <p class="display-1 text-center">Ваше изображение</p>
+
+        <div class="col my-5">
+            <div class="card h-100 p-4 mx-auto"
+                style="width: fit-content; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <div class="d-flex m-0 p-0 align-items-center mb-3 mx-auto" style="height: 300px;">
+                    <img src="{{ user_image_url }}" alt="Ваше изображение" style="max-height: 100%; max-width: 100%;">
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% if results and winner %}
+    <div class="container mt-5">
+        <p class="display-1 text-center">С наибольшей вероятностью это<br><b>{{ winner.name }} - {{ winner.score }}</b>
+        </p>
+
+        <div class="col my-3">
+            <div class="card h-100 p-4 mx-auto"
+                style="width: fit-content; box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                <div class="d-flex m-0 p-0 align-items-center mb-3 mx-auto" style="height: 300px;">
+                    <img src="static/{{ winner.img }}" style="max-height: 100%; max-width: 100%;">
+                </div>
+            </div>
+        </div>
+
+        <p class="display-4 text-center">Другие варианты</p>
+        <p class="display-5 text-center">
+            <!-- {% if results.1 %}{{ results.1.name }} - {{ results.1.score }}%{% endif %}<br> -->
+            {% if results.2 %}{{ results.2.name }} - {{ results.2.score }}%{% endif %}<br>
+            {% if results.3 %}{{ results.3.name }} - {{ results.3.score }}%{% endif %}<br>
+            {% if results.4 %}{{ results.4.name }} - {{ results.4.score }}%{% endif %}<br>
+            {% if results.5 %}{{ results.5.name }} - {{ results.5.score }}%{% endif %}<br>
+            {% if results.6 %}{{ results.6.name }} - {{ results.6.score }}%{% endif %}
+        </p>
+    </div>
+    {% endif %}
+
+    <div class="container mt-5">
+        <hr class="hr hr-blurry" />
+        <p class="display-1 m-0 text-center">Классы</p>
+        <hr class="hr hr-blurry" />
+    </div>
+
+    <div class="container mt-5">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+            <div class="col">
+                <div class="card h-100 p-4"
+                    style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <div class="d-flex m-0 p-0 align-items-center mb-3 mx-auto" style="height: 300px;">
+                        <img src="{% static 'img/notumor.jpg' %}" style="max-height: 100%; max-width: 100%;">
+                    </div>
+                    <span class="card-title fs-2 fw-bold text-decoration-none text-center">Здоровый мозг</span>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 p-4"
+                    style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <div class="d-flex m-0 p-0 align-items-center mb-3 mx-auto" style="height: 300px;">
+                        <img src="{% static 'img/pituitary.jpg' %}" style="max-height: 100%; max-width: 100%;">
+                    </div>
+                    <span class="card-title fs-2 fw-bold text-decoration-none text-center">Опухоль гипофиза</span>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 p-4"
+                    style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <div class="d-flex m-0 p-0 align-items-center mb-3 mx-auto" style="height: 300px;">
+                        <img src="{% static 'img/meningioma.jpg' %}" style="max-height: 100%; max-width: 100%;">
+                    </div>
+                    <span class="card-title fs-2 fw-bold text-decoration-none text-center">Менингиома</span>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100 p-4"
+                    style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);">
+                    <div class="d-flex m-0 p-0 align-items-center mb-3 mx-auto" style="height: 300px;">
+                        <img src="{% static 'img/glioma.jpg' %}" style="max-height: 100%; max-width: 100%;">
+                    </div>
+                    <span class="card-title fs-2 fw-bold text-decoration-none text-center">Глиома</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container my-5 fs-3">
+        <p>
+            Опухоль головного мозга — это скопление аномальных клеток в мозге.
+            Ваш череп, в котором заключен мозг, очень твердый.
+            Любой рост внутри такого ограниченного пространства может вызвать проблемы.<br>
+            Опухоли головного мозга могут быть раковыми (злокачественными) и нераковыми (доброкачественными).
+            Когда доброкачественные или злокачественные опухоли растут, они могут вызвать повышение давления внутри
+            черепа.
+            Это может привести к повреждению головного мозга и быть опасным для жизни.
+        </p><hr class="hr hr-blurry" />
+        <p>
+            <b>Опухоль гипофиза</b><br>
+            Гипофиз — это железа размером с горошину, расположенная в костной структуре (турецкое седло) в основании
+            головного мозга.
+        </p><hr class="hr hr-blurry" />
+        <p>
+            <b>Менингиома</b><br>
+            Менингиома — это вид опухоли головного мозга, развивающейся в мозговых оболочках.
+            Мозговые оболочки — это ткани, окружающие ваш головной и спиной мозг.
+            Это обычно доброкачественные новообразования.
+        </p><hr class="hr hr-blurry" />
+        <p>
+            <b>Глиома</b><br>
+            Глиома – вид опухоли, которая возникает в головном или спинном мозге, а также,
+            возможно ее появление в месте соединения головного и спинного мозга. 
+            Глиомы могут быть как доброкачественными, так и злокачественными.
+        </p>
+    </div>
+
+    {% include 'include/footer.html' %}
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js"
+        integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js"
+        integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
