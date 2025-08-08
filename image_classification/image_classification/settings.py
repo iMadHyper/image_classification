@@ -140,7 +140,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 IMG_HEIGHT = 512
 IMG_WIDTH = 512
 
-MODEL = keras.saving.load_model('brain_tumor.keras')
+MODEL = keras.saving.load_model('model/brain_tumor.keras')
 
 CLASS_NAMES = ['glioma', 'meningioma', 'notumor', 'pituitary']
 CLASS_IMAGES = {
@@ -158,3 +158,4 @@ CLASS_RU_NAMES = {
 
 # директория, куда будем сохранять изображения
 SAVE_USER_UPLOADS_DIRECTORY = os.path.join(MEDIA_ROOT, 'uploaded_images')
+os.makedirs(SAVE_USER_UPLOADS_DIRECTORY, exist_ok=True)

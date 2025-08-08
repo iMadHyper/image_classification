@@ -80,7 +80,7 @@ def predict_image(image_file):
     except Exception as ex:
         print(ex)
         context.update({
-            'error' : 'Не получилось открыть файл. Поддерживаемые типы файлов: jpg, jpeg, webp.'
+            'errors' : ('Не получилось открыть файл. Поддерживаемые типы файлов: jpg, jpeg, webp.', f'{ex}')
         })
     
     return context
