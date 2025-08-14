@@ -3,9 +3,12 @@
 <header class="p-0 bg-white text-dark border-bottom">
     <div class="container">
         <nav class="navbar navbar-white bg-white py-3">
-            <a class="navbar-brand" href="{% url 'main:main' %}">
+            <a class="fs-3 text-dark m-0 link-underline link-underline-opacity-0" href="{% url 'main:main' %}">
                 <img src="{% static 'img/logo.png' %}" style="height: 35px;" class="me-2">
                 Классификация изображений
+            </a>
+            <a href="{% url 'main:predict_api' %}" class="fs-3 text-dark m-0 link-offset-2">
+                API
             </a>
         </nav>
     </div>
