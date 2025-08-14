@@ -2,9 +2,11 @@
 
 ## 📷 Демонстрация
 
-![Главная страница]<img width="1267" height="957" alt="image" src="https://github.com/user-attachments/assets/2fadddf4-4f4f-475e-8947-fa7ea8b87afe" />
+Главная страница
+<img width="1267" height="957" alt="image" src="https://github.com/user-attachments/assets/2fadddf4-4f4f-475e-8947-fa7ea8b87afe" />
 
-![Результат]<img width="1192" height="942" alt="image" src="https://github.com/user-attachments/assets/7fa24fa6-8674-45d8-9ada-72f4b9d06e98" />
+Результат
+<img width="1192" height="942" alt="image" src="https://github.com/user-attachments/assets/7fa24fa6-8674-45d8-9ada-72f4b9d06e98" />
 
 
 
