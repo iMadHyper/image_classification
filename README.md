@@ -12,6 +12,7 @@
 
 Модель была создана и обучена в kaggle kernel, там же находится и использованный датасет:
 https://www.kaggle.com/code/ilyassosaev/image-classification
+
 Скачать модель можно здесь:
 https://drive.google.com/file/d/1Y2RotUHBVA5M1go7c6twuaMgu_s2L2UC/view?usp=drive_link
 
